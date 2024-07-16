@@ -1,0 +1,72 @@
+body {
+    /* background-image: url('../images/backdrop6.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 70px; /* Adjust based on header height */
+    /* color: #ffffff; Set default text color to white */
+}
+
+.navbar.transparent-navbar {
+    background-color: rgba(0, 0, 0, 0.7); /* Blackish tint with transparency */
+}
+
+.navbar .nav-link {
+    color: #fff !important; /* White text color for nav links */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.navbar .navbar-brand img {
+    filter: brightness(0) invert(1); /* Adjust logo if needed */
+}
+
+
+.footer.transparent-footer {
+    background-color: rgba(225, 225, 225); /* Blackish tint with transparency */
+    color: black;
+}
+
+.footer img {
+    width: 120px;
+    height: auto;
+}
+
+.modal-header {
+    background-color: #007bff;
+}
+
+.modal-header .close {
+    color: white;
+}
+
+.modal-body {
+    background-color: rgba(0, 0, 0, 0.7); /* Adjust opacity as needed */
+    backdrop-filter: blur(100px);
+}
+
+
+
+/* Button styles for GSAP animations */
+#about-button {
+    background-color: transparent;
+    color: #007bff;
+    transition: background-color 0.5s, color 0.5s, border-radius 0.5s;
+}
+
+#about-button:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+}
+
+#team-button {
+    background-color: transparent;
+    color: #007bff;
+    transition: background-color 0.5s, color 0.5s, border-radius 0.5s;
+}
+
+#team-button:hover {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px;
+}
