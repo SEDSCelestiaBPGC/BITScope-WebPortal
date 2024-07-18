@@ -1,111 +1,196 @@
-{% extends 'base.html' %}
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <!-- <div>
     <img src="/static/images/bg2.jpeg" alt="a telescope looking at the night sky" class="object-fit-cover" style="width: 100vw; height: 40vh;">
 </div> -->
 <div class="container pt-5">
-    <div class="text-center w-75 mx-auto my-5 pb-5">
-        <h1 class="display-5 fw-bold">Control BITS Goa's Observation Telescope</h1>
-        <p class="fs-5">SEDS Celestia has opened access to our automated observation telescope to every BITS student. Through this webportal, you can select a target object and exposure settings and schedule a picture to be taken and sent to your BITS email.</p>
-    </div>
-    <div class="row">
-        <form name="theform" action="/send/" onsubmit='return validateForm()' method="post">
-            <div class="col-12">
-                <h2><span class="font-monospace fs-5 text-gray me-2">STEP 1</span> Select a target</h2>
-                {% for category, objects in arranged_data.items() %}
-                <div class="col-12">
-                    <h3 class="font-monospace fw-bold fs-5 text-gray me-2 mt-5 mb-3 text-uppercase">{{ category }}</h3>
-                </div>
-                <div class="row my-4 row-gap-3 column-gap-0 justify-content-between">
-                    {% for object, image_url in objects.items() %}
-                    <div class="col-6 col-sm-4 col-md-3">
-                        <input type="radio" class="btn-check m-0" name="object" id="{{object}}" value="{{object}}" autocomplete="off">
-                        <label for="{{object}}" class="btn mx-0 btn-dark mb-3 h-100 p-0 border-2">
-                            <img src="{{ image_url }}" class="card-img-top rounded-top object-fit-cover m-0" alt="{{ object }}">
-                            <div class="card-body rounded-bottom mt-3 py-0">
-                                <p class="card-title my-0">{{ object }}</p>
-                            </div>
-                        </label>
-                    </div>
-                    {% endfor %}
-                </div>
-                {% endfor %}
-            </div>
+  <div class="text-center w-75 mx-auto my-5 pb-5">
+    <h1 class="display-5 fw-bold">Control BITS Goa's Observation Telescope</h1>
+    <p class="fs-5">
+      SEDS Celestia has opened access to our automated observation telescope to
+      every BITS student. Through this webportal, you can select a target object
+      and exposure settings and schedule a picture to be taken and sent to your
+      BITS email.
+    </p>
+  </div>
+  <div class="row">
+    <form
+      name="theform"
+      action="/send/"
+      onsubmit="return validateForm()"
+      method="post"
+    >
+      <div class="col-12">
+        <h2>
+          <span class="font-monospace fs-5 text-gray me-2">STEP 1</span> Select
+          a target
+        </h2>
+        {% for category, objects in arranged_data.items() %}
+        <div class="col-12">
+          <h3
+            class="font-monospace fw-bold fs-5 text-gray me-2 mt-5 mb-3 text-uppercase"
+          >
+            {{ category }}
+          </h3>
+        </div>
+        <div class="row my-4 row-gap-3 column-gap-0 justify-content-between">
+          {% for object, image_url in objects.items() %}
+          <div class="col-6 col-sm-4 col-md-3">
+            <input
+              type="radio"
+              class="btn-check m-0"
+              name="object"
+              id="{{object}}"
+              value="{{object}}"
+              autocomplete="off"
+            />
+            <label
+              for="{{object}}"
+              class="btn mx-0 btn-dark mb-3 h-100 p-0 border-2"
+            >
+              <img
+                src="{{ image_url }}"
+                class="card-img-top rounded-top object-fit-cover m-0"
+                alt="{{ object }}"
+              />
+              <div class="card-body rounded-bottom mt-3 py-0">
+                <p class="card-title my-0">{{ object }}</p>
+              </div>
+            </label>
+          </div>
+          {% endfor %}
+        </div>
+        {% endfor %}
+      </div>
 
-            <div class="col-12 mt-5">
-                <h2 class="mb-3"><span class="font-monospace fs-5 text-gray me-2">STEP 2</span> Select Exposure</h2>
-                <div class="d-flex flex-wrap">
-                    <input type="radio" class="btn-check" id="1" name="exposure" value="1" autocomplete="off">
-                    <label for="1" class="btn btn-lg btn-dark mx-1 my-1">1 Sec</label>
+      <div class="col-12 mt-5">
+        <h2 class="mb-3">
+          <span class="font-monospace fs-5 text-gray me-2">STEP 2</span> Select
+          Exposure
+        </h2>
+        <div class="d-flex flex-wrap">
+          <input
+            type="radio"
+            class="btn-check"
+            id="1"
+            name="exposure"
+            value="1"
+            autocomplete="off"
+          />
+          <label for="1" class="btn btn-lg btn-dark mx-1 my-1">1 Sec</label>
 
-                    <input type="radio" class="btn-check" id="2" name="exposure" value="10" autocomplete="off">
-                    <label for="2" class="btn btn-lg btn-dark mx-1 my-1">10 Sec</label>
+          <input
+            type="radio"
+            class="btn-check"
+            id="2"
+            name="exposure"
+            value="10"
+            autocomplete="off"
+          />
+          <label for="2" class="btn btn-lg btn-dark mx-1 my-1">10 Sec</label>
 
-                    <input type="radio" class="btn-check" id="3" name="exposure" value="15" autocomplete="off">
-                    <label for="3" class="btn btn-dark btn-lg mx-1 my-1">15 Sec</label>
+          <input
+            type="radio"
+            class="btn-check"
+            id="3"
+            name="exposure"
+            value="15"
+            autocomplete="off"
+          />
+          <label for="3" class="btn btn-dark btn-lg mx-1 my-1">15 Sec</label>
 
-                    <input type="radio" class="btn-check" id="4" name="exposure" value="30" autocomplete="off">
-                    <label for="4" class="btn btn-dark btn-lg mx-1 my-1">30 Sec</label>
-                </div>
-            </div>
+          <input
+            type="radio"
+            class="btn-check"
+            id="4"
+            name="exposure"
+            value="30"
+            autocomplete="off"
+          />
+          <label for="4" class="btn btn-dark btn-lg mx-1 my-1">30 Sec</label>
+        </div>
+      </div>
 
-            <div class="col-12 mt-5">
-                <h2 class="mb-3"><span class="font-monospace fs-5 text-gray me-2">STEP 3</span> Enter your details</h2>
-                <div class="row g-3 mb-3">
-                    <div class="col-12 col-sm-6 col-md-4 form-floating" data-bs-theme="dark" style="color: #dee2e6;">
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Name">
-                        <label for="name">Name</label>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-8 form-floating" data-bs-theme="dark" style="color: #dee2e6;">
-                        <input type="email" class="form-control" name="email" id="email" placeholder="BITS Email Address">
-                        <label for="email">BITS Email Address</label>
-                    </div>
-                </div>
-                <button type="submit" value="submit" class="btn btn-primary btn-lg">SUBMIT</button>
-            </div>
-        </form>
-    </div>
+      <div class="col-12 mt-5">
+        <h2 class="mb-3">
+          <span class="font-monospace fs-5 text-gray me-2">STEP 3</span> Enter
+          your details
+        </h2>
+        <div class="row g-3 mb-3">
+          <div
+            class="col-12 col-sm-6 col-md-4 form-floating"
+            data-bs-theme="dark"
+            style="color: #dee2e6"
+          >
+            <input
+              type="text"
+              class="form-control"
+              id="name"
+              name="name"
+              placeholder="Name"
+            />
+            <label for="name">Name</label>
+          </div>
+          <div
+            class="col-12 col-sm-6 col-md-8 form-floating"
+            data-bs-theme="dark"
+            style="color: #dee2e6"
+          >
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="email"
+              placeholder="BITS Email Address"
+            />
+            <label for="email">BITS Email Address</label>
+          </div>
+        </div>
+        <button type="submit" value="submit" class="btn btn-primary btn-lg">
+          SUBMIT
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
 
 <script>
-function validateForm() {
+  function validateForm() {
     let x = document.forms["theform"]["object"].value;
     if (x == "") {
-        alert("Object must be selected");
-        return false;
+      alert("Object must be selected");
+      return false;
     }
     let y = document.forms["theform"]["exposure"].value;
     if (y == "") {
-        alert("Exposure must be selected");
-        return false;
+      alert("Exposure must be selected");
+      return false;
     }
     let z1 = document.forms["theform"]["name"].value;
     if (z1 == "") {
-        alert("Name must be entered");
-        return false;
+      alert("Name must be entered");
+      return false;
     }
     let z2 = document.forms["theform"]["email"].value;
     if (z2 == "" || z2.includes("bits-pilani.ac.in") == false) {
-        alert("BITS Email must be entered");
-        return false;
+      alert("BITS Email must be entered");
+      return false;
     }
     sendData();
     return false;
-}
+  }
 
-function sendData() {
+  function sendData() {
     let formData = new FormData(document.forms["theform"]);
     fetch("/send/", {
-        method: "POST",
-        body: formData
+      method: "POST",
+      body: formData,
     })
-    .then(response => response.json())
-    .then(data => {
+      .then((response) => response.json())
+      .then((data) => {
         alert("Data will be sent to your email in 1-2 days.");
         window.location.href = "/";
-    })
-    .catch(error => console.error("Error:", error));
-}
+      })
+      .catch((error) => console.error("Error:", error));
+  }
 </script>
 {% endblock %}
