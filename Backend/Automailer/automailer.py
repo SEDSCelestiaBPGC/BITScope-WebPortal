@@ -7,13 +7,15 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 import mysql.connector
-load_dotenv()
+
+load_dotenv("../../.env")
 db_host = os.getenv('DB_HOST')
 db_user = os.getenv('MYSQL_USER')
 db_password = os.getenv('MYSQL_PASSWORD')
 db_name = os.getenv('DB_NAME')
 sender_email = os.getenv('EMAIL')
 password = os.getenv('PASSWORD')
+
 conn = mysql.connector.connect(
     host=db_host,
     user=db_user,

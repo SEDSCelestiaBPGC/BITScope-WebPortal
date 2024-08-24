@@ -1,15 +1,17 @@
-# Required libraries
+#  Required libraries
 import sqlite3
+import mysql.connector
+import databaseFunc
 import dotenv
 import requests, synscan
-# import database (uncomment if switch to mysql)
 import os
 import time
 from datetime import datetime
 
-dotenv.load_dotenv()
+
+dotenv.load_dotenv("../.env")
 port = os.environ["PORT"]
-connect = sqlite3.connect("database.db")
+connect = mysql.connector.connect("database.db").cursor()
 
 # Fetches the final coordinates of an object given the port number
 def fetch_object(obj, port):
@@ -35,17 +37,19 @@ def track(obj, t):
 
     coords = fetch_object('+'.join(obj.lower().split(' ')), port)
     print(f"[+] Tracking {obj} || Exposure {t}s ...")
+    
     slew_telescope(coords)
     endtime = time.time() + t
+    
     while time.time() < endtime:
         coords = fetch_object('+'.join(obj.lower().split(' ')), port)
         slew_telescope(coords)
         time.sleep(0.01)
+    
     print("[+] Tracking done !")
 
 # Takes Object name through CLI
 def manual_control():
-
     obj = input("Enter Object Name : ").strip()
     track(obj, 30)
 
@@ -60,11 +64,11 @@ def sorter(elem):
     return datetime(dte[0],dte[1],dte[2],tm[0],tm[1],tm[2])
 
 def sorted_data():
-    data= connect.execute("SELECT * FROM DATA").fetchall()
+    data =  databaseFunc.getRequests()
     return sorted(data,key=sorter)
 
 def web_control():
-    data=connect.execute("SELECT * from data").fetchall()
+    data=databaseFunc.getRequests()
     for req_ind in range(len(data)):
         track(data[req_ind][3],data[req_ind][2])
    
