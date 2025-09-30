@@ -1,7 +1,8 @@
+
 #  Required libraries
-import sqlite3
-import mysql.connector
-import databaseFunc
+#import sqlite3
+#import mysql.connector
+#import databaseFunc
 import dotenv
 import requests, synscan
 import os
@@ -11,7 +12,7 @@ from datetime import datetime
 
 dotenv.load_dotenv("../.env")
 port = os.environ["PORT"]
-connect = mysql.connector.connect("database.db").cursor()
+#connect = mysql.connector.connect("database.db").cursor()
 
 # Fetches the final coordinates of an object given the port number
 def fetch_object(obj, port):
